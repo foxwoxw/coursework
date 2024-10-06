@@ -8,7 +8,6 @@ import bilinear # Билинейная интерполяция
 import lanczos   # Интерполяция Ланцоша
 
 
-
 def main():
     print("Имя файла: ", end = '')
     name = input()
@@ -60,8 +59,8 @@ def main():
     elif i == '5':
         # Выбор параметра
         print("Необходимо задать размер области для интерполяции.\n"
-              "При a = x для вычисления значения в неизвестной точке используется x^2 пикселей.\n"
-              "Допустимые значения - целые числа от 2 до 6.")
+              "При a = x для вычисления значения в неизвестной точке используется x^2 соседних пикселей.\n"
+              "Допустимые значения - целые числа от 2 до 5. Стандартное значение: a = 3")
         print("Значение параметра a: a = ", end = '')
         a = input()
         try: 
@@ -69,17 +68,16 @@ def main():
         except ValueError:
             print("Недопустимое значение параметра.")
             return
-        if a < 2 and a > 6:
+        if a < 2 and a > 5:
             print("Недопустимое значение параметра.")
             return
-        out_img = out_img
+        out_img = lanczos.lanczos_interpolation(in_img, out_img, T, action, a)
     else:
         return
     print("1 - Сохранить, 2 - Завершить.\nВвод: ", end = '')
     i = input()
     if i == '1':
         img.save_img(out_img)
-
 
 
 main()
